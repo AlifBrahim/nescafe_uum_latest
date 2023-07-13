@@ -21,6 +21,12 @@ app = Flask(__name__, template_folder='templates')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    return render_template('index.html')
+
+
+
+@app.route('/menu', methods=['GET', 'POST'])
+def menu():
     if request.method == 'POST':
         # Get form inputs
         first_name = request.form['first_name']
@@ -41,8 +47,9 @@ def index():
         cursor = conn.cursor()
 
         # Insert the data into the nescafe table
-        query = "INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date, appointment_time, phone, message)
+        query = "   INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date,
+                  appointment_time, phone, message)
         cursor.execute(query, values)
 
         # Commit the changes and close the connection
@@ -52,12 +59,6 @@ def index():
 
         return 'Data added to the database successfully!'
 
-    return render_template('index.html')
-
-
-
-@app.route('/menu')
-def menu():
     return render_template('menu.html')
 
 

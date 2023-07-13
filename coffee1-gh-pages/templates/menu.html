@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<style>
+	#coffee-container select[name="coffee[]"] option {
+		color: black;
+	}
+	.btn-success {
+		background-color: #28a745;
+		color: #fff;
+		border-color: #28a745;
+	}
+
+	.btn-success:hover {
+		background-color: #218838;
+		color: #fff;
+		border-color: #1e7e34;
+	}
+</style>
 <html lang="en">
   {% extends 'base.html' %}
 {% block content %}
@@ -48,44 +64,113 @@
 	    				</div>
 	    			</div>
 	    		</div>
-	    		<div class="book p-4">
-	    			<h3>Book a Table</h3>
-	    			<form action="#" class="appointment-form">
-	    				<div class="d-md-flex">
-		    				<div class="form-group">
-		    					<input type="text" class="form-control" placeholder="First Name">
-		    				</div>
-		    				<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Last Name">
-		    				</div>
-	    				</div>
-	    				<div class="d-md-flex">
-		    				<div class="form-group">
-		    					<div class="input-wrap">
-		            		<div class="icon"><span class="ion-md-calendar"></span></div>
-		            		<input type="text" class="form-control appointment_date" placeholder="Date">
-	            		</div>
-		    				</div>
-		    				<div class="form-group ml-md-4">
-		    					<div class="input-wrap">
-		            		<div class="icon"><span class="ion-ios-clock"></span></div>
-		            		<input type="text" class="form-control appointment_time" placeholder="Time">
-	            		</div>
-		    				</div>
-		    				<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Phone">
-		    				</div>
-	    				</div>
-	    				<div class="d-md-flex">
-	    					<div class="form-group">
-		              <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
-		            </div>
-		            <div class="form-group ml-md-4">
-		              <input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
-		            </div>
-	    				</div>
-	    			</form>
-	    		</div>
+	    		<!-- Booking Form -->
+<div class="book p-4">
+	<h3>Book Coffee for your event!</h3>
+	<form action="/menu" method="POST" class="appointment-form">
+		<div class="d-md-flex">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="First Name" name="first_name">
+			</div>
+			<div class="form-group ml-md-4">
+				<input type="text" class="form-control" placeholder="Last Name" name="last_name">
+			</div>
+		</div>
+
+		<div class="d-md-flex">
+			<div class="form-group ml-md-4">
+				<input type="text" class="form-control" placeholder="Event Name" name="event_name">
+			</div>
+			<div class="form-group ml-md-4">
+				<input type="text" class="form-control" placeholder="Location" name="location">
+			</div>
+		</div>
+
+		<div id="coffee-container">
+			<div class="coffee-entry">
+				<div class="d-md-flex">
+					<div class="form-group">
+						<select class="form-control" name="coffee[]">
+							<option value="classic">Classic</option>
+							<option value="cappuccino">Cappuccino</option>
+							<option value="latte">Latte</option>
+						</select>
+					</div>
+					<div class="form-group ml-md-4">
+						<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+					</div>
+					<div class="form-group ml-md-2">
+						<button type="button" class="btn btn-success btn-sm add-coffee">+</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="d-md-flex">
+			<div class="form-group">
+				<div class="input-wrap">
+					<div class="icon"><span class="ion-md-calendar"></span></div>
+					<input type="text" class="form-control appointment_date" placeholder="Date" name="appointment_date">
+				</div>
+			</div>
+			<div class="form-group ml-md-4">
+				<div class="input-wrap">
+					<div class="icon"><span class="ion-ios-clock"></span></div>
+					<input type="text" class="form-control appointment_time" placeholder="Time" name="appointment_time">
+				</div>
+			</div>
+			<div class="form-group ml-md-4">
+				<input type="text" class="form-control" placeholder="Phone" name="phone">
+			</div>
+		</div>
+		<div class="d-md-flex">
+			<div class="form-group">
+				<textarea name="message" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+			</div>
+			<div class="form-group ml-md-4">
+				<input type="submit" value="Book" class="btn btn-white py-3 px-4">
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- End of Booking Form -->
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var coffeeContainer = document.getElementById("coffee-container");
+		var addButton = document.querySelector(".add-coffee");
+
+		addButton.addEventListener("click", function() {
+			var coffeeEntry = document.createElement("div");
+			coffeeEntry.classList.add("coffee-entry");
+			coffeeEntry.innerHTML = `
+				<div class="d-md-flex">
+					<div class="form-group">
+						<select class="form-control" name="coffee[]">
+							<option value="classic">Classic</option>
+							<option value="cappuccino">Cappuccino</option>
+							<option value="latte">Latte</option>
+						</select>
+					</div>
+					<div class="form-group ml-md-4">
+						<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
+					</div>
+					<div class="form-group ml-md-2">
+						<button type="button" class="btn btn-danger btn-sm remove-coffee">-</button>
+					</div>
+				</div>
+			`;
+			coffeeContainer.appendChild(coffeeEntry);
+		});
+
+		coffeeContainer.addEventListener("click", function(event) {
+			if (event.target.classList.contains("remove-coffee")) {
+				event.target.closest(".coffee-entry").remove();
+			}
+		});
+	});
+</script>
     		</div>
     	</div>
     </section>
