@@ -19,48 +19,45 @@
 {% block content %}
 
     <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image: url(../static/images/bg_1.jpg);">
+      <div class="slider-item" style="background-image: url(../static/images/bg_5.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
             <div class="col-md-8 col-sm-12 text-center ftco-animate">
             	<span class="subheading">Welcome</span>
-              <h1 class="mb-4">The Best Coffee Testing Experience</h1>
-              <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+              <h1 class="mb-4" style="font-family: Georgia, serif";>It all starts with a Nescafe</h1>
+              <p><a href="{{ url_for('menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Want to Book for Events?</a> </p>
             </div>
 
           </div>
         </div>
       </div>
 
-      <div class="slider-item" style="background-image: url(../static/images/bg_2.jpg);">
+      <div class="slider-item" style="background-image: url(../static/images/bg_11.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
             <div class="col-md-8 col-sm-12 text-center ftco-animate">
             	<span class="subheading">Welcome</span>
-              <h1 class="mb-4">Amazing Taste &amp; Beautiful Place</h1>
-              <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+              <h1 class="mb-4" style="font-family: Georgia, serif";>Amazing Taste &amp; Beautiful Place</h1>
+              <p><a href="{{ url_for('menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Want to Book for Events?</a> </p>
             </div>
 
           </div>
         </div>
       </div>
 
-      <div class="slider-item" style="background-image: url(../static/images/bg_3.jpg);">
+      <div class="slider-item" style="background-image: url(../static/images/bg_6.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
             <div class="col-md-8 col-sm-12 text-center ftco-animate">
             	<span class="subheading">Welcome</span>
-              <h1 class="mb-4">Creamy Hot and Ready to Serve</h1>
-              <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+              <h1 class="mb-4" style="font-family: Georgia, serif"; >Find us at SBM</h1>
+              <p><a href="{{ url_for('menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Want to Book for Events?</a> </p>
             </div>
 
           </div>
@@ -96,77 +93,7 @@
 	    				</div>
 	    			</div>
 	    		</div>
-				<!-- Booking Form -->
-<div class="book p-4">
-	<h3>Book Coffee for your event!</h3>
-	<form action="/" method="POST" class="appointment-form">
-		<div class="d-md-flex">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="First Name" name="first_name">
-			</div>
-			<div class="form-group ml-md-4">
-				<input type="text" class="form-control" placeholder="Last Name" name="last_name">
-			</div>
-		</div>
 
-		<div class="d-md-flex">
-			<div class="form-group ml-md-4">
-				<input type="text" class="form-control" placeholder="Event Name" name="event_name">
-			</div>
-			<div class="form-group ml-md-4">
-				<input type="text" class="form-control" placeholder="Location" name="location">
-			</div>
-		</div>
-
-		<div id="coffee-container">
-			<div class="coffee-entry">
-				<div class="d-md-flex">
-					<div class="form-group">
-						<select class="form-control" name="coffee[]">
-							<option value="classic">Classic</option>
-							<option value="cappuccino">Cappuccino</option>
-							<option value="latte">Latte</option>
-						</select>
-					</div>
-					<div class="form-group ml-md-4">
-						<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
-					</div>
-					<div class="form-group ml-md-2">
-						<button type="button" class="btn btn-success btn-sm add-coffee">+</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="d-md-flex">
-			<div class="form-group">
-				<div class="input-wrap">
-					<div class="icon"><span class="ion-md-calendar"></span></div>
-					<input type="text" class="form-control appointment_date" placeholder="Date" name="appointment_date">
-				</div>
-			</div>
-			<div class="form-group ml-md-4">
-				<div class="input-wrap">
-					<div class="icon"><span class="ion-ios-clock"></span></div>
-					<input type="text" class="form-control appointment_time" placeholder="Time" name="appointment_time">
-				</div>
-			</div>
-			<div class="form-group ml-md-4">
-				<input type="text" class="form-control" placeholder="Phone" name="phone">
-			</div>
-		</div>
-		<div class="d-md-flex">
-			<div class="form-group">
-				<textarea name="message" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
-			</div>
-			<div class="form-group ml-md-4">
-				<input type="submit" value="Book" class="btn btn-white py-3 px-4">
-			</div>
-		</div>
-	</form>
-</div>
-
-<!-- End of Booking Form -->
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {

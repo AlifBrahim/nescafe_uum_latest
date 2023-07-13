@@ -28,7 +28,7 @@
 
             <div class="col-md-7 col-sm-12 text-center ftco-animate">
             	<h1 class="mb-3 mt-5 bread">Our Menu</h1>
-	            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Menu</span></p>
+	            <p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('index') }}">Home</a></span> <span>Menu</span></p>
             </div>
 
           </div>
@@ -45,28 +45,28 @@
 	    					<div class="icon"><span class="icon-phone"></span></div>
 	    					<div class="text">
 	    						<h3>000 (123) 456 7890</h3>
-	    						<p>A small river named Duden flows by their place and supplies.</p>
+	    						<p>Group 2</p>
 	    					</div>
 	    				</div>
 	    				<div class="col-md-4 d-flex ftco-animate">
 	    					<div class="icon"><span class="icon-my_location"></span></div>
 	    					<div class="text">
-	    						<h3>198 West 21th Street</h3>
-	    						<p>	203 Fake St. Mountain View, San Francisco, California, USA</p>
+	    						<h3>SBM UUM</h3>
+	    						<p>	School of Business and Management, Universiti Utara Malaysia, Kedah, Malaysia</p>
 	    					</div>
 	    				</div>
 	    				<div class="col-md-4 d-flex ftco-animate">
 	    					<div class="icon"><span class="icon-clock-o"></span></div>
 	    					<div class="text">
-	    						<h3>Open Monday-Friday</h3>
-	    						<p>8:00am - 9:00pm</p>
+	    						<h3>Open Sunday-Thursday</h3>
+	    						<p>8:00am - 5:00pm</p>
 	    					</div>
 	    				</div>
 	    			</div>
 	    		</div>
 	    		<!-- Booking Form -->
 <div class="book p-4">
-	<h3>Book Coffee for your event!</h3>
+	<h3 >Book Coffee for your event!</h3>
 	<form action="/menu" method="POST" class="appointment-form">
 		<div class="d-md-flex">
 			<div class="form-group">
@@ -76,9 +76,8 @@
 				<input type="text" class="form-control" placeholder="Last Name" name="last_name">
 			</div>
 		</div>
-
 		<div class="d-md-flex">
-			<div class="form-group ml-md-4">
+			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Event Name" name="event_name">
 			</div>
 			<div class="form-group ml-md-4">
@@ -92,14 +91,14 @@
 					<div class="form-group">
 						<select class="form-control" name="coffee[]">
 							<option value="classic">Classic</option>
-							<option value="cappuccino">Cappuccino</option>
+							<option value="cappuccino">Mocha</option>
 							<option value="latte">Latte</option>
 						</select>
 					</div>
 					<div class="form-group ml-md-4">
 						<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
 					</div>
-					<div class="form-group ml-md-2">
+					<div class="form-group ml-md-4">
 						<button type="button" class="btn btn-success btn-sm add-coffee">+</button>
 					</div>
 				</div>
@@ -411,7 +410,7 @@
 		            </div>
 		          </div>
 		          <div class="col-md-12 d-flex align-items-center">
-		            
+
 		            <div class="tab-content ftco-animate" id="v-pills-tabContent">
 
 		              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
