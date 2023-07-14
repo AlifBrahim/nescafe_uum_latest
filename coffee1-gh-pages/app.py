@@ -63,7 +63,7 @@ def menu():
         cursor.close()
         conn.close()
 
-        flash('Data added to the database successfully!')
+        flash("Data added to the database successfully!", "success")
         return redirect('/menu')  # Redirect back to the form page
 
     return render_template('menu.html')
