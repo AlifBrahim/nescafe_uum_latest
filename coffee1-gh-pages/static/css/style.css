@@ -7686,6 +7686,35 @@ h1, h2, h3, h4, h5,
           .owl-carousel.home-slider .owl-dots .owl-dot.active span {
             background: white; }
 
+
+
+/*
+flash message
+ */
+
+ .flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .flash-message {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .flash-message.success {
+    background-color: #28a745;
+  }
+
+  .flash-message.error {
+    background-color: #dc3545;
+  }
+
 .owl-custom-nav {
   float: right;
   position: relative;
@@ -7718,21 +7747,32 @@ h1, h2, h3, h4, h5,
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #721c24;
-    border: 1px solid #000000;
-    color: khaki; }
-    .btn.btn-primary:hover {
-      border: 4px solid #c49b63;
-      background: #c49b63;
-      color: #721c24; }
-    .btn.btn-primary.btn-outline-primary {
-      border: 1px solid #c49b63;
-      background: transparent;
-      color: #c49b63; }
-      .btn.btn-primary.btn-outline-primary:hover {
-        border: 1px solid transparent;
-        background: #c49b63;
-        color: #fff; }
+  background: #721c24;
+  border: 1px solid #000000;
+  color: khaki;
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.btn.btn-primary:hover {
+  border: 4px solid #c49b63;
+  background: #c49b63;
+  color: #721c24;
+  font-weight: bold;
+}
+
+.btn.btn-primary.btn-outline-primary {
+  border: 1px solid #c49b63;
+  background: transparent;
+  color: #c49b63;
+}
+
+.btn.btn-primary.btn-outline-primary:hover {
+  border: 1px solid transparent;
+  background: #c49b63;
+  color: #fff;
+}
+
   .btn.btn-white {
     background: #721c24;
     border: 1px solid #000000;
@@ -7920,6 +7960,11 @@ h1, h2, h3, h4, h5,
 .heading-pricing {
   text-transform: uppercase;
   font-size: 24px; }
+
+
+/*
+Styles untuk map
+ */
 
 .pricing-entry {
   width: 100%;
