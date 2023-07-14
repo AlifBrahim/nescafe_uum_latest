@@ -5,7 +5,7 @@ Created on Wed Jul 12 23:32:14 2023
 @author: IMAN ZULHAKIM
 """
 from datetime import datetime
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, get_flashed_messages
 import mysql.connector
 
 # MySQL database configuration
@@ -49,13 +49,12 @@ def menu():
 
         # Perform validation
         if int(quantity[0]) < 30:  # Assuming quantity is a single value, not a list
-            flash("Failed to book. The quantity should be at least 30.", "error")
+            flash("error")
             return redirect('/menu')  # Redirect back to the form page
 
         # Insert the data into the nescafe table
         query = "INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date,
-                  appointment_time, phone, message)
+        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date, appointment_time, phone, message)
         cursor.execute(query, values)
 
         # Commit the changes and close the connection
@@ -63,10 +62,11 @@ def menu():
         cursor.close()
         conn.close()
 
-        flash("Data added to the database successfully!", "success")
+        flash("success")
         return redirect('/menu')  # Redirect back to the form page
 
-    return render_template('menu.html')
+    return render_template('menu.html', messages=get_flashed_messages())
+
 
 
 @app.route('/services')
