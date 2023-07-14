@@ -424,54 +424,56 @@
   </body>
  <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let cartCount = 0;
-			const addToCartButtons = document.querySelectorAll('.btn-primary.btn-outline-primary');
-            const cartIcon = document.querySelector('.cart .bag small');
-            let cartItems = [];
+    let cartCount = 0;
+    const addToCartButtons = document.querySelectorAll('.btn-primary.btn-outline-primary');
+    const cartIcon = document.querySelector('.cart .bag small');
+    let cartItems = [];
 
-            // Retrieve cartItems from localStorage on page load
-            window.addEventListener('load', () => {
-                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-                updateCartButtons();
-            });
+    // Retrieve cartItems from localStorage on page load
+    window.addEventListener('load', () => {
+        cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        updateCartButtons();
+    });
 
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', event => {
-                    cartCount++;
-                    cartIcon.textContent = cartCount;
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            const item = event.target.closest('.menu-wrap');
+            const itemName = item.querySelector('h3 a').textContent;
+            const itemPrice = item.querySelector('.price span').textContent;
 
-                    const item = event.target.closest('.menu-wrap');
-                    const itemName = item.querySelector('h3 a').textContent;
-                    const itemPrice = item.querySelector('.price span').textContent;
+            const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+            if (existingItem) {
+                console.log('Item already exists in the cart:', existingItem);
+                return; // Exit the function if the item already exists
+            }
 
-                    const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
-                    if (existingItem) {
-                        console.log('Item already exists:', existingItem);
-                    } else {
-                        const newItem = { name: itemName, price: itemPrice };
-                        cartItems.push(newItem);
-                        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                        console.log('New item added:', newItem);
-                    }
+            const newItem = { name: itemName, price: itemPrice };
+            cartItems.push(newItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log('New item added:', newItem);
 
-                    updateCartButtons();
-                });
-            });
+            cartCount++;
+            cartIcon.textContent = cartCount;
+            updateCartButtons();
+        });
+    });
 
-            function updateCartButtons() {
-                addToCartButtons.forEach(button => {
-                    const item = button.closest('.menu-wrap');
-                    const itemName = item.querySelector('h3 a').textContent;
+    function updateCartButtons() {
+        addToCartButtons.forEach(button => {
+            const item = button.closest('.menu-wrap');
+            const itemName = item.querySelector('h3 a').textContent;
 
-                    const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
-                    if (existingItem) {
-                        button.textContent = 'Added to cart';
-                        button.classList.add('btn-disabled');
-                        button.disabled = true;
-                    }
-                });
+            const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+            if (existingItem) {
+                button.textContent = 'Added to cart';
+                button.classList.add('btn-disabled');
+                button.disabled = true;
             }
         });
+    }
+    console.log('cartItems: ', cartItems);
+});
+
     </script>
 </html>
 {% endblock %}
