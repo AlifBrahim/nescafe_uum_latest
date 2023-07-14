@@ -7814,9 +7814,9 @@ h1, h2, h3, h4, h5,
         height: 300px; } }
   @media (min-width: 768px) {
     .ftco-about .one-half .overlap {
-      margin-left: -150px;
+      margin-left: -50px;
       padding: 40px;
-      background: rgba(0, 0, 0, 0.5); } }
+      background: #721c24 } }
 
 .ftco-services {
   color: #1d150b;
@@ -7909,6 +7909,13 @@ h1, h2, h3, h4, h5,
       -webkit-transform: rotate(135deg);
       -ms-transform: rotate(135deg);
       transform: rotate(135deg); }
+.icon-tiktok img {
+  width: 30px; /* Set the desired width */
+  height: 30px; /* Set the desired height */
+  position: absolute; /* Set the position to absolute */
+  top: 8px; /* Set the desired distance from the top */
+  left: 10px; /* Set the desired distance from the left */
+}
 
 .heading-pricing {
   text-transform: uppercase;
