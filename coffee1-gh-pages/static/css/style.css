@@ -4340,6 +4340,7 @@ input[type="button"].btn-block {
 button.close {
   padding: 0;
   background-color: transparent;
+  color: #0b0b0b;
   border: 0;
   -webkit-appearance: none; }
 

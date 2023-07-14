@@ -5,8 +5,9 @@ Created on Wed Jul 12 23:32:14 2023
 @author: IMAN ZULHAKIM
 """
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect
 import mysql.connector
+
 # MySQL database configuration
 db_config = {
     'host': 'cctmcagenda2.mysql.database.azure.com',
@@ -17,12 +18,12 @@ db_config = {
 }
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = 'your_secret_key'
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
-
 
 
 @app.route('/menu', methods=['GET', 'POST'])
@@ -46,8 +47,13 @@ def menu():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
+        # Perform validation
+        if int(quantity[0]) < 30:  # Assuming quantity is a single value, not a list
+            flash("Failed to book. The quantity should be at least 30.", "error")
+            return redirect('/menu')  # Redirect back to the form page
+
         # Insert the data into the nescafe table
-        query = "   INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date,
                   appointment_time, phone, message)
         cursor.execute(query, values)
@@ -57,7 +63,8 @@ def menu():
         cursor.close()
         conn.close()
 
-        return 'Data added to the database successfully!'
+        flash('Data added to the database successfully!')
+        return redirect('/menu')  # Redirect back to the form page
 
     return render_template('menu.html')
 
@@ -81,18 +88,20 @@ def cart():
 def checkout():
     return render_template('checkout.html')
 
+
 @app.route('/shop')
 def shop():
     return render_template('shop.html')
+
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
+
 @app.route('/product')
 def product():
     return render_template('product-single.html')
-
 
 
 if __name__ == "__main__":
