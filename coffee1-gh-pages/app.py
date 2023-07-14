@@ -5,7 +5,7 @@ Created on Wed Jul 12 23:32:14 2023
 @author: IMAN ZULHAKIM
 """
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 import mysql.connector
 # MySQL database configuration
 db_config = {
@@ -58,7 +58,6 @@ def menu():
         conn.close()
 
         return 'Data added to the database successfully!'
-
     return render_template('menu.html')
 
 
@@ -74,7 +73,21 @@ def about():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    # Get the cart from the session
+    cart = session.get('cart', [])
+    # Pass the cart to the template
+    return render_template('cart.html', cart=cart)
+
+@app.route('/add_to_cart/<int:product_id>', methods=['POST'])
+def add_to_cart(product_id):
+    # Check if the cart already exists in the session
+    if 'cart' not in session:
+        # If not, create a new cart
+        session['cart'] = []
+    # Add the product to the cart
+    session['cart'].append(product_id)
+    # Redirect to the cart page
+    return redirect(url_for('cart'))
 
 
 @app.route('/checkout')

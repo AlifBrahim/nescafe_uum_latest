@@ -1,8 +1,15 @@
 <!DOCTYPE html>
+
 <style>
 	#coffee-container select[name="coffee[]"] option {
 		color: black;
 	}
+	.btn-disabled {
+  background-color: #e0e0e0;
+  color: #888888;
+  cursor: not-allowed;
+}
+
 	.btn-success {
 		background-color: #28a745;
 		color: #fff;
@@ -186,7 +193,11 @@
     		<div class="row d-md-flex">
 	    		<div class="col-lg-12 ftco-animate p-md-5">
 		    		<div class="row">
-		         
+		          <div class="col-md-12 nav-link-wrap mb-5">
+		            <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		              <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Drinks</a>
+					</div>
+		          </div>
 		          <div class="col-md-12 d-flex align-items-center">
 
 		            <div class="tab-content ftco-animate" id="v-pills-tabContent">
@@ -411,5 +422,56 @@
     	</div>
     </section>
   </body>
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let cartCount = 0;
+			const addToCartButtons = document.querySelectorAll('.btn-primary.btn-outline-primary');
+            const cartIcon = document.querySelector('.cart .bag small');
+            let cartItems = [];
+
+            // Retrieve cartItems from localStorage on page load
+            window.addEventListener('load', () => {
+                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                updateCartButtons();
+            });
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', event => {
+                    cartCount++;
+                    cartIcon.textContent = cartCount;
+
+                    const item = event.target.closest('.menu-wrap');
+                    const itemName = item.querySelector('h3 a').textContent;
+                    const itemPrice = item.querySelector('.price span').textContent;
+
+                    const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+                    if (existingItem) {
+                        console.log('Item already exists:', existingItem);
+                    } else {
+                        const newItem = { name: itemName, price: itemPrice };
+                        cartItems.push(newItem);
+                        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                        console.log('New item added:', newItem);
+                    }
+
+                    updateCartButtons();
+                });
+            });
+
+            function updateCartButtons() {
+                addToCartButtons.forEach(button => {
+                    const item = button.closest('.menu-wrap');
+                    const itemName = item.querySelector('h3 a').textContent;
+
+                    const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+                    if (existingItem) {
+                        button.textContent = 'Added to cart';
+                        button.classList.add('btn-disabled');
+                        button.disabled = true;
+                    }
+                });
+            }
+        });
+    </script>
 </html>
 {% endblock %}
