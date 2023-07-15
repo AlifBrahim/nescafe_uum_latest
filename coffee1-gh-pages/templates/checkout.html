@@ -117,7 +117,7 @@
                 <span id="cart-subtotal">$20.60</span>
               </p>
               <p class="d-flex">
-                <span>Delivery</span>
+                <span id="cart-delivery-label">Delivery</span>
                 <span id="cart-delivery">$0.00</span>
               </p>
 
@@ -238,6 +238,25 @@
   console.log('cartItems: ', cartItems);
   document.querySelector('#checkout-form').addEventListener('submit', function(event) {
     localStorage.removeItem('cartItems');
+});
+  // when 'pickup' is selected, remove the delivery fee
+    const deliveryPriceElement = document.querySelector('#cart-delivery');
+  const deliveryLabelElement = document.querySelector('#cart-delivery-label');
+const pickupRadioButton = document.querySelector('input[name="pickup_delivery"][value="pickup"]');
+const deliveryRadioButton = document.querySelector('input[name="pickup_delivery"][value="delivery"]');
+
+pickupRadioButton.addEventListener('change', function(event) {
+    if (event.target.checked) {
+        deliveryPriceElement.style.display = 'none';
+                  deliveryLabelElement.style.display = 'none';
+    }
+});
+
+deliveryRadioButton.addEventListener('change', function(event) {
+    if (event.target.checked) {
+        deliveryPriceElement.style.display = 'flex';
+                  deliveryLabelElement.style.display = 'flex';
+    }
 });
 
 </script>
