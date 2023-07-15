@@ -68,11 +68,6 @@ def service():
     return render_template('services.html')
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-
 @app.route('/cart')
 def cart():
     # Get the cart from the session
@@ -132,21 +127,6 @@ def checkout():
         'checkout.html',
         cart=cart,
     )
-
-
-
-
-@app.route('/shop')
-def shop():
-    return render_template('shop.html')
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
-
-@app.route('/product')
-def product():
-    return render_template('product-single.html')
 
 
 
