@@ -78,21 +78,61 @@ def cart():
     # Pass the cart to the template
     return render_template('cart.html', cart=cart)
 
-@app.route('/add_to_cart/<int:product_id>', methods=['POST'])
-def add_to_cart(product_id):
-    # Check if the cart already exists in the session
-    if 'cart' not in session:
-        # If not, create a new cart
-        session['cart'] = []
-    # Add the product to the cart
-    session['cart'].append(product_id)
-    # Redirect to the cart page
-    return redirect(url_for('cart'))
-
-
-@app.route('/checkout')
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    return render_template('checkout.html')
+    payment_method = request.form.get('payment_method')
+    print('payment_method:', payment_method)
+    # Get the cart from the session
+    cart = session.get('cart', [])
+    # Calculate the subtotal and total
+    subtotal = sum(item['price'] * item['quantity'] for item in cart)
+    delivery = 0.00  # Set delivery fee here
+    total = subtotal + delivery
+
+    if request.method == 'POST':
+        print(request.form)
+        # Get the form data
+        first_name = request.form.get('first_name')
+        location = request.form.get('location')
+        phone = request.form.get('phone')
+        email_address = request.form.get('email_address')
+        pickup_delivery = request.form.get('pickup_delivery')
+        payment_method = request.form.get('payment_method')
+        terms_conditions = request.form.get('terms_conditions', 0)
+
+        # Calculate the subtotal, delivery, and total
+        subtotal = float(request.form.get('subtotal'))
+        delivery = float(request.form.get('delivery'))
+        total = subtotal + delivery
+
+        # Create a connection to the database
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        # Insert the form data into the database
+        query = """
+            INSERT INTO orders (
+                first_name, location, phone, email_address, pickup_delivery,
+                subtotal, total, payment_method, terms_conditions, delivery
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (first_name, location, phone, email_address,
+                               pickup_delivery, subtotal, total, payment_method,
+                               terms_conditions, delivery))
+
+        # Commit the transaction and close the connection
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    # Pass the cart and calculated values to the template
+    return render_template(
+        'checkout.html',
+        cart=cart,
+    )
+
+
+
 
 @app.route('/shop')
 def shop():

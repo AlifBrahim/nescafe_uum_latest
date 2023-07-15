@@ -5,7 +5,7 @@
 
     <section class="home-slider owl-carousel">
 
-      <div class="slider-item" style="background-image: url(../static/images/gallery-3.jpg);" data-stellar-background-ratio="0.5">
+      <div class="slider-item" style="background-image: url(../static/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center">
@@ -19,7 +19,7 @@
         </div>
       </div>
     </section>
-		
+
 		<section class="ftco-section ftco-cart">
 			<div class="container">
 				<div class="row">
@@ -37,140 +37,42 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><span class="icon-close"></span></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(../static/images/menu-2.jpg);"></div></td>
-						        <td class="product-name">
-						        	<h3>Creamy Latte Coffee</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
 
-						        <td class="price">$4.90</td>
-
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-
-						        <td class="total">$4.90</td>
-						      </tr><!-- END TR-->
-
-						      <tr class="text-center">
-						        <td class="product-remove"><span class="icon-close"></span></td>
-
-						        <td class="image-prod"><div class="img" style="background-image:url(../static/images/dish-2.jpg);"></div></td>
-
-						        <td class="product-name">
-						        	<h3>Grilled Ribs Beef</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-
-						        <td class="price">$15.70</td>
-
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-
-						        <td class="total">$15.70</td>
-						      </tr><!-- END TR-->
 						    </tbody>
 						  </table>
 					  </div>
     			</div>
     		</div>
-<!-- Add these elements where you want to display the cart subtotal and total -->
-<p id="cart-subtotal"></p>
-<p id="cart-total"></p>
 
     		<div class="row justify-content-end">
     			<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
-    					<h3>Cart Totals</h3>
-    					<p class="d-flex">
-    						<span>Subtotal</span>
-    						<span>$20.60</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Delivery</span>
-    						<span>$0.00</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Discount</span>
-    						<span>$3.00</span>
-    					</p>
-    					<hr>
-    					<p class="d-flex total-price">
-    						<span>Total</span>
-    						<span>$17.60</span>
-    					</p>
-    				</div>
+					<h3>Cart Totals</h3>
+					<p class="d-flex">
+						<span>Subtotal</span>
+						<span id="cart-subtotal">$20.60</span>
+					</p>
+					<p class="d-flex">
+						<span>Delivery</span>
+						<span>$0.00</span>
+					</p>
+					<p class="d-flex">
+						<span>Discount</span>
+						<span>$3.00</span>
+					</p>
+					<hr>
+					<p class="d-flex total-price">
+						<span>Total</span>
+						<span id="cart-total">$17.60</span>
+					</p>
+				</div>
     				<p class="text-center"><a href="{{ url_for('checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
     			</div>
     		</div>
 			</div>
 		</section>
 
-    <section class="ftco-section">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section ftco-animate text-center">
-          	<span class="subheading">Discover</span>
-            <h2 class="mb-4">Related Product</h2>
-            <p>Nescafé, perfect drink to kickstart a great day, providing a boost of energy and a delightful flavor that helps you seize the morning with enthusiasm and productivity.</p>
-          </div>
-        </div>
-        <div class="row">
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(../static/images/original.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Original</a></h3>
-    						<p>A rich and smooth instant coffee blend that delivers a satisfying taste to start your day right.</p>
-    						<p class="price"><span>RM2.50</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(../static/images/milktea.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Milk Tea</a></h3>
-    						<p>Discover the creamy indulgence of milk tea infused with the delightful aroma.</p>
-    						<p class="price"><span>RM2.50</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(../static/images/Rich.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Rich</a></h3>
-    						<p>Immerse yourself in the bold and robust flavor of Nescafé Rich, a coffee that delivers a satisfy.</p>
-    						<p class="price"><span>RM2.50</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        	<div class="col-md-3">
-        		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(../static/images/NesCaramel.jpg);"></a>
-    					<div class="text text-center pt-4">
-    						<h3><a href="#">Caramel</a></h3>
-    						<p>Experience the perfect balance of smooth coffee and luscious caramel flavor.</p>
-    						<p class="price"><span>RM2.50</span></p>
-    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-    					</div>
-    				</div>
-        	</div>
-        </div>
-    	</div>
-    </section>
+
 <script>
 // 	const cartTableBody = document.querySelector('#cart-table tbody');
 //
@@ -302,19 +204,29 @@ const tdImage = document.createElement('td');
   tr.appendChild(tdPrice);
 
   const tdQuantity = document.createElement('td');
-  tdQuantity.classList.add('quantity');
-  const divQuantity = document.createElement('div');
-  divQuantity.classList.add('input-group', 'mb-3');
-  const inputQuantity = document.createElement('input');
-  inputQuantity.setAttribute('type', 'text');
-  inputQuantity.setAttribute('name', 'quantity');
-  inputQuantity.classList.add('quantity', 'form-control', 'input-number');
-  inputQuantity.setAttribute('value', '1');
-  inputQuantity.setAttribute('min', '1');
-  inputQuantity.setAttribute('max', '100');
-    divQuantity.appendChild(inputQuantity);
-  tdQuantity.appendChild(divQuantity);
-  tr.appendChild(tdQuantity);
+    tdQuantity.classList.add('quantity');
+    const divQuantity = document.createElement('div');
+    divQuantity.classList.add('input-group', 'mb-3');
+    const inputQuantity = document.createElement('input');
+    inputQuantity.setAttribute('type', 'text');
+    inputQuantity.setAttribute('name', 'quantity');
+    inputQuantity.classList.add('quantity', 'form-control', 'input-number');
+    inputQuantity.setAttribute('value', item.quantity); // Set initial value to item.quantity
+    inputQuantity.setAttribute('min', '1');
+    inputQuantity.setAttribute('max', '100');
+
+    // Add event listener to update item quantity when input value is changed
+    inputQuantity.addEventListener('input', event => {
+      const newQuantity = parseInt(event.target.value);
+      if (newQuantity >= 1 && newQuantity <= 100) {
+        cartItems[index].quantity = newQuantity;
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        renderCartItems();
+      }
+    });
+	 divQuantity.appendChild(inputQuantity);
+    tdQuantity.appendChild(divQuantity);
+    tr.appendChild(tdQuantity);
 
   const tdTotal = document.createElement('td');
   tdTotal.classList.add('total');
@@ -322,7 +234,7 @@ const tdImage = document.createElement('td');
   tr.appendChild(tdTotal);
     cartTableBody.appendChild(tr);
 
-    total += parseFloat(item.price.slice(1));
+    total += parseFloat(item.price.slice(1)) * item.quantity; // Multiply price by quantity
   });
 
   const cartSubtotal = document.querySelector('#cart-subtotal');
@@ -330,6 +242,7 @@ const tdImage = document.createElement('td');
 
   const cartTotal = document.querySelector('#cart-total');
   cartTotal.textContent = `$${total.toFixed(2)}`;
+  console.log('cartItems: ', cartItems);
 }
 
 renderCartItems();
@@ -337,4 +250,3 @@ renderCartItems();
 </script>
 </html>
 {% endblock %}
-
