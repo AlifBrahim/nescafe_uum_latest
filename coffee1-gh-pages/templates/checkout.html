@@ -236,6 +236,10 @@
   renderCartItems();
 
   console.log('cartItems: ', cartItems);
+  document.querySelector('#checkout-form').addEventListener('submit', function(event) {
+    localStorage.removeItem('cartItems');
+});
+
 </script>
 
 </html>
