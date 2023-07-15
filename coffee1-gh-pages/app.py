@@ -5,7 +5,7 @@ Created on Wed Jul 12 23:32:14 2023
 @author: IMAN ZULHAKIM
 """
 from datetime import datetime
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, get_flashed_messages,session
 import mysql.connector
 # MySQL database configuration
 db_config = {
@@ -17,7 +17,7 @@ db_config = {
 }
 
 app = Flask(__name__, template_folder='templates')
-
+app.secret_key = 'your_secret_key'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -35,21 +35,23 @@ def menu():
         location = request.form['location']
         coffee = request.form.getlist('coffee[]')
         quantity = request.form.getlist('quantity[]')
-        # Format the appointment_date value to YYYY-MM-DD
         appointment_date = datetime.strptime(request.form['appointment_date'], '%m/%d/%Y').strftime('%Y-%m-%d')
-        # Format the appointment_time value to HH:MM:SS
         appointment_time = datetime.strptime(request.form['appointment_time'], '%I:%M%p').strftime('%H:%M:%S')
         phone = request.form['phone']
         message = request.form['message']
+
+        # Check if quantity is less than 30
+        if sum(int(qty) for qty in quantity) < 30:
+            flash('error')
+            return redirect('/menu')
 
         # Connect to the database
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
         # Insert the data into the nescafe table
-        query = "   INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date,
-                  appointment_time, phone, message)
+        query = "INSERT INTO nescafe (first_name, last_name, event_name, location, coffee, quantity, appointment_date, appointment_time, phone, message) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (first_name, last_name, event_name, location, ', '.join(coffee), ', '.join(quantity), appointment_date, appointment_time, phone, message)
         cursor.execute(query, values)
 
         # Commit the changes and close the connection
@@ -57,8 +59,8 @@ def menu():
         cursor.close()
         conn.close()
 
-        return 'Data added to the database successfully!'
-    return render_template('menu.html')
+        flash('success')
+    return render_template('menu.html', messages=get_flashed_messages())
 
 
 @app.route('/services')
