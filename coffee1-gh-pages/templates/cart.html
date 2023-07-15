@@ -24,7 +24,7 @@
 			<div class="container">
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
-    				<div class="cart-list">
+    				<div id="cart-table" class="cart-list">
 	    				<table class="table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
@@ -38,44 +38,43 @@
 						    </thead>
 						    <tbody>
 						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+						        <td class="product-remove"><span class="icon-close"></span></td>
 						        
 						        <td class="image-prod"><div class="img" style="background-image:url(../static/images/menu-2.jpg);"></div></td>
-						        
 						        <td class="product-name">
 						        	<h3>Creamy Latte Coffee</h3>
 						        	<p>Far far away, behind the word mountains, far from the countries</p>
 						        </td>
-						        
+
 						        <td class="price">$4.90</td>
-						        
+
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
 					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
 					          	</div>
 					          </td>
-						        
+
 						        <td class="total">$4.90</td>
 						      </tr><!-- END TR-->
 
 						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-						        
+						        <td class="product-remove"><span class="icon-close"></span></td>
+
 						        <td class="image-prod"><div class="img" style="background-image:url(../static/images/dish-2.jpg);"></div></td>
-						        
+
 						        <td class="product-name">
 						        	<h3>Grilled Ribs Beef</h3>
 						        	<p>Far far away, behind the word mountains, far from the countries</p>
 						        </td>
-						        
+
 						        <td class="price">$15.70</td>
-						        
+
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
 					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
 					          	</div>
 					          </td>
-						        
+
 						        <td class="total">$15.70</td>
 						      </tr><!-- END TR-->
 						    </tbody>
@@ -83,6 +82,10 @@
 					  </div>
     			</div>
     		</div>
+<!-- Add these elements where you want to display the cart subtotal and total -->
+<p id="cart-subtotal"></p>
+<p id="cart-total"></p>
+
     		<div class="row justify-content-end">
     			<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
@@ -168,5 +171,170 @@
         </div>
     	</div>
     </section>
+<script>
+// 	const cartTableBody = document.querySelector('#cart-table tbody');
+//
+// let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+// console.log('cartItems: ', cartItems)
+// let total = 0;
+//
+// cartItems.forEach(item => {
+//   const tr = document.createElement('tr');
+//   tr.classList.add('text-center');
+//
+//   const tdRemove = document.createElement('td');
+//   tdRemove.classList.add('product-remove');
+//   const aRemove = document.createElement('a');
+//   aRemove.setAttribute('href', '#');
+//   const spanRemove = document.createElement('span');
+//   spanRemove.classList.add('icon-close');
+//   aRemove.appendChild(spanRemove);
+//   tdRemove.appendChild(aRemove);
+//   tr.appendChild(tdRemove);
+//
+//   const tdImage = document.createElement('td');
+//   tdImage.classList.add('image-prod');
+//   const divImage = document.createElement('div');
+//   divImage.classList.add('img');
+//   divImage.style.backgroundImage = `url(${item.image})`;
+//   tdImage.appendChild(divImage);
+//   tr.appendChild(tdImage);
+//
+//   const tdName = document.createElement('td');
+//   tdName.classList.add('product-name');
+//   const h3Name = document.createElement('h3');
+//   h3Name.textContent = item.name;
+//   const pName = document.createElement('p');
+//   pName.textContent = item.description;
+//   tdName.appendChild(h3Name);
+//   tdName.appendChild(pName);
+//   tr.appendChild(tdName);
+//
+//   const tdPrice = document.createElement('td');
+//   tdPrice.classList.add('price');
+//   tdPrice.textContent = item.price;
+//   tr.appendChild(tdPrice);
+//
+//   const tdQuantity = document.createElement('td');
+//   tdQuantity.classList.add('quantity');
+//   const divQuantity = document.createElement('div');
+//   divQuantity.classList.add('input-group', 'mb-3');
+//   const inputQuantity = document.createElement('input');
+//   inputQuantity.setAttribute('type', 'text');
+//   inputQuantity.setAttribute('name', 'quantity');
+//   inputQuantity.classList.add('quantity', 'form-control', 'input-number');
+//   inputQuantity.setAttribute('value', '1');
+//   inputQuantity.setAttribute('min', '1');
+//   inputQuantity.setAttribute('max', '100');
+//     divQuantity.appendChild(inputQuantity);
+//   tdQuantity.appendChild(divQuantity);
+//   tr.appendChild(tdQuantity);
+//
+//   const tdTotal = document.createElement('td');
+//   tdTotal.classList.add('total');
+//   tdTotal.textContent = item.price;
+//   tr.appendChild(tdTotal);
+//
+//   cartTableBody.appendChild(tr);
+//
+//   total += parseFloat(item.price.slice(1));
+// });
+//
+// const cartSubtotal = document.querySelector('#cart-subtotal');
+// cartSubtotal.textContent = `$${total.toFixed(2)}`;
+//
+// const cartTotal = document.querySelector('#cart-total');
+// cartTotal.textContent = `$${total.toFixed(2)}`;
+
+const cartTableBody = document.querySelector('#cart-table tbody');
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let total = 0;
+
+// Function to remove an item from the cartItems array
+function removeCartItem(index) {
+  cartItems.splice(index, 1);
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  renderCartItems(); // Re-render the cart items after removing an item
+}
+
+function renderCartItems() {
+  // Clear the existing cart items in the table
+  cartTableBody.innerHTML = '';
+  total = 0;
+
+  cartItems.forEach((item, index) => {
+    const tr = document.createElement('tr');
+    tr.classList.add('text-center');
+
+    const tdRemove = document.createElement('td');
+    tdRemove.classList.add('product-remove');
+    const aRemove = document.createElement('a');
+    const spanRemove = document.createElement('span');
+    spanRemove.classList.add('icon-close');
+    spanRemove.addEventListener('click', () => {
+      removeCartItem(index);
+    });
+    aRemove.appendChild(spanRemove);
+    tdRemove.appendChild(aRemove);
+    tr.appendChild(tdRemove);
+
+const tdImage = document.createElement('td');
+  tdImage.classList.add('image-prod');
+  const divImage = document.createElement('div');
+  divImage.classList.add('img');
+  divImage.style.backgroundImage = `url(${item.image})`;
+  tdImage.appendChild(divImage);
+  tr.appendChild(tdImage);
+
+  const tdName = document.createElement('td');
+  tdName.classList.add('product-name');
+  const h3Name = document.createElement('h3');
+  h3Name.textContent = item.name;
+  const pName = document.createElement('p');
+  pName.textContent = item.description;
+  tdName.appendChild(h3Name);
+  tdName.appendChild(pName);
+  tr.appendChild(tdName);
+
+  const tdPrice = document.createElement('td');
+  tdPrice.classList.add('price');
+  tdPrice.textContent = item.price;
+  tr.appendChild(tdPrice);
+
+  const tdQuantity = document.createElement('td');
+  tdQuantity.classList.add('quantity');
+  const divQuantity = document.createElement('div');
+  divQuantity.classList.add('input-group', 'mb-3');
+  const inputQuantity = document.createElement('input');
+  inputQuantity.setAttribute('type', 'text');
+  inputQuantity.setAttribute('name', 'quantity');
+  inputQuantity.classList.add('quantity', 'form-control', 'input-number');
+  inputQuantity.setAttribute('value', '1');
+  inputQuantity.setAttribute('min', '1');
+  inputQuantity.setAttribute('max', '100');
+    divQuantity.appendChild(inputQuantity);
+  tdQuantity.appendChild(divQuantity);
+  tr.appendChild(tdQuantity);
+
+  const tdTotal = document.createElement('td');
+  tdTotal.classList.add('total');
+  tdTotal.textContent = item.price;
+  tr.appendChild(tdTotal);
+    cartTableBody.appendChild(tr);
+
+    total += parseFloat(item.price.slice(1));
+  });
+
+  const cartSubtotal = document.querySelector('#cart-subtotal');
+  cartSubtotal.textContent = `$${total.toFixed(2)}`;
+
+  const cartTotal = document.querySelector('#cart-total');
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+}
+
+renderCartItems();
+
+</script>
 </html>
 {% endblock %}
+

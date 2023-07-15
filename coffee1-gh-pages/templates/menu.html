@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <style>
 	#coffee-container select[name="coffee[]"] option {
 		color: black;
@@ -16,12 +15,9 @@
 		border-color: #1e7e34;
 	}
 </style>
-
 <html lang="en">
-	{% extends 'base.html' %}
-	{% block content %}
-
-
+  {% extends 'base.html' %}
+{% block content %}
 
     <section class="home-slider owl-carousel">
 
@@ -32,6 +28,7 @@
 
             <div class="col-md-7 col-sm-12 text-center ftco-animate">
             	<span class="subheading">Our Menu</span>
+	            <p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('index') }}">Home</a></span> <span>Menu</span></p>
             </div>
 
           </div>
@@ -69,26 +66,6 @@
 	    		</div>
 	    		<!-- Booking Form -->
 <div class="book p-4">
-	{% if messages %}
-    	{% for message in messages %}
-        	{% if "success" in message %}
-            	<div class="alert alert-success alert-dismissible fade show" role="alert">
-                	<p>Data added to the database successfully!</p>
-                	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    	<span aria-hidden="true">&times;</span>
-                	</button>
-            	</div>
-        	{% elif "error" in message %}
-            	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<p>Failed to book. The quantity should be at least 30. </p>
-                	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    	<span aria-hidden="true">&times;</span>
-                	</button>
-            	</div>
-        	{% endif %}
-    	{% endfor %}
-	{% endif %}
-
 	<h3 >Book Coffee for your event!</h3>
 	<form action="/menu" method="POST" class="appointment-form">
 		<div class="d-md-flex">
@@ -157,30 +134,8 @@
 </div>
 
 <!-- End of Booking Form -->
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script>
-
-	function submitForm(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Get the form inputs
-        var first_name = document.getElementById('first_name').value;
-        var last_name = document.getElementById('last_name').value;
-        var quantity = parseInt(document.getElementById('quantity').value);
-
-        // Perform the validation
-        if (quantity < 30) {
-            alert("Failed to book. The quantity should be at least 30.");
-        } else {
-            // If validation passes, submit the form
-            document.getElementById('menu_form').submit();
-            alert("Successfully booked!");
-        }
-    }
-
 	document.addEventListener("DOMContentLoaded", function() {
 		var coffeeContainer = document.getElementById("coffee-container");
 		var addButton = document.querySelector(".add-coffee");
@@ -231,7 +186,7 @@
     		<div class="row d-md-flex">
 	    		<div class="col-lg-12 ftco-animate p-md-5">
 		    		<div class="row">
-
+		         
 		          <div class="col-md-12 d-flex align-items-center">
 
 		            <div class="tab-content ftco-animate" id="v-pills-tabContent">
@@ -311,32 +266,10 @@
 		                <div class="row">
 		              		<div class="col-md-4 text-center">
 		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/original.jpg);"></a>
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-1.jpg);"></a>
 		              				<div class="text">
-		              					<h3><a href="#">Original</a></h3>
-		              					<p>A rich and smooth instant coffee blend that delivers a satisfying taste to start your day right.</p>
-		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/milktea.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="#">Milk Tea</a></h3>
-		              					<p>Discover the creamy indulgence of milk tea infused with the delightful aroma and smoothness of Nescafé.</p>
-		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/hazelnut.jpeg);"></a>
-		              				<div class="text">
-		              					<h3><a href="#">Hazelnuts</a></h3>
-		              					<p>Indulge in the delightful fusion of smooth coffee and the irresistible aroma of roasted hazelnuts. A truly flavorful experience.</p>
+		              					<h3><a href="#">Lemonade Juice</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 		              					<p class="price"><span>$2.90</span></p>
 		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
@@ -344,10 +277,10 @@
 		              		</div>
 		              		<div class="col-md-4 text-center">
 		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/NesCaramel.jpg);"></a>
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-2.jpg);"></a>
 		              				<div class="text">
-		              					<h3><a href="#">Caramel</a></h3>
-		              					<p> Experience the perfect balance of smooth coffee and luscious caramel flavor, creating a deliciously sweet and comforting cup.</p>
+		              					<h3><a href="#">Pineapple Juice</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 		              					<p class="price"><span>$2.90</span></p>
 		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
@@ -355,10 +288,10 @@
 		              		</div>
 		              		<div class="col-md-4 text-center">
 		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/Mocha.jpg);"></a>
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-3.jpg);"></a>
 		              				<div class="text">
-		              					<h3><a href="#">Mocha</a></h3>
-		              					<p>A harmonious blend of rich coffee and indulgent chocolate, offering a delightful combination of flavors in every sip.</p>
+		              					<h3><a href="#">Soda Drinks</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 		              					<p class="price"><span>$2.90</span></p>
 		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
@@ -366,10 +299,32 @@
 		              		</div>
 		              		<div class="col-md-4 text-center">
 		              			<div class="menu-wrap">
-		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/Rich.jpg);"></a>
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-4.jpg);"></a>
 		              				<div class="text">
-		              					<h3><a href="#">Rich</a></h3>
-		              					<p> Immerse yourself in the bold and robust flavor of Nescafé Rich, a coffee that delivers a satisfyingly intense and full-bodied taste.</p>
+		              					<h3><a href="#">Lemonade Juice</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+		              					<p class="price"><span>$2.90</span></p>
+		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+		              				</div>
+		              			</div>
+		              		</div>
+		              		<div class="col-md-4 text-center">
+		              			<div class="menu-wrap">
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-5.jpg);"></a>
+		              				<div class="text">
+		              					<h3><a href="#">Pineapple Juice</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+		              					<p class="price"><span>$2.90</span></p>
+		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+		              				</div>
+		              			</div>
+		              		</div>
+		              		<div class="col-md-4 text-center">
+		              			<div class="menu-wrap">
+		              				<a href="#" class="menu-img img mb-4" style="background-image: url(../static/images/drink-6.jpg);"></a>
+		              				<div class="text">
+		              					<h3><a href="#">Soda Drinks</a></h3>
+		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
 		              					<p class="price"><span>$2.90</span></p>
 		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
@@ -455,5 +410,6 @@
 		    </div>
     	</div>
     </section>
+  </body>
 </html>
-	{% endblock %}
+{% endblock %}
