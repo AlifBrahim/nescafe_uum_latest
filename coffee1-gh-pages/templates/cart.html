@@ -50,20 +50,20 @@
 					<h3>Cart Totals</h3>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span id="cart-subtotal">$20.60</span>
+						<span id="cart-subtotal">RM 20.60</span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
-						<span>$0.00</span>
+						<span>RM 0.00</span>
 					</p>
 					<p class="d-flex">
 						<span>Discount</span>
-						<span>$3.00</span>
+						<span>RM 3.00</span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span id="cart-total">$17.60</span>
+						<span id="cart-total">RM 17.60</span>
 					</p>
 				</div>
     				<p class="text-center"><a href="{{ url_for('checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -290,14 +290,14 @@ const tdImage = document.createElement('td');
   tr.appendChild(tdTotal);
     cartTableBody.appendChild(tr);
 
-    total += parseFloat(item.price.slice(1)) * item.quantity; // Multiply price by quantity
+	total += parseFloat(item.price.slice(2)) * item.quantity;
   });
 
   const cartSubtotal = document.querySelector('#cart-subtotal');
-  cartSubtotal.textContent = `$${total.toFixed(2)}`;
+  cartSubtotal.textContent = `RM ${total.toFixed(2)}`;
 
   const cartTotal = document.querySelector('#cart-total');
-  cartTotal.textContent = `$${total.toFixed(2)}`;
+  cartTotal.textContent = `RM ${total.toFixed(2)}`;
   console.log('cartItems: ', cartItems);
 }
 

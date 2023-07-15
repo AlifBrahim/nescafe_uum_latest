@@ -217,38 +217,66 @@
     }
 
 	document.addEventListener("DOMContentLoaded", function() {
-		var coffeeContainer = document.getElementById("coffee-container");
-		var addButton = document.querySelector(".add-coffee");
+    let cartCount = 0;
+    const addToCartButtons = document.querySelectorAll('.btn-primary.btn-outline-primary');
+    const cartIcon = document.querySelector('.cart .bag small');
+    let cartItems = [];
 
-		addButton.addEventListener("click", function() {
-			var coffeeEntry = document.createElement("div");
-			coffeeEntry.classList.add("coffee-entry");
-			coffeeEntry.innerHTML = `
-				<div class="d-md-flex">
-					<div class="form-group">
-						<select class="form-control" name="coffee[]">
-							<option value="classic">Classic</option>
-							<option value="cappuccino">Cappuccino</option>
-							<option value="latte">Latte</option>
-						</select>
-					</div>
-					<div class="form-group ml-md-4">
-						<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
-					</div>
-					<div class="form-group ml-md-2">
-						<button type="button" class="btn btn-danger btn-sm remove-coffee">-</button>
-					</div>
-				</div>
-			`;
-			coffeeContainer.appendChild(coffeeEntry);
-		});
+    // Retrieve cartItems from localStorage on page load
+    window.addEventListener('load', () => {
+        cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        updateCartButtons();
+    });
 
-		coffeeContainer.addEventListener("click", function(event) {
-			if (event.target.classList.contains("remove-coffee")) {
-				event.target.closest(".coffee-entry").remove();
-			}
-		});
-	});
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            const item = event.target.closest('.menu-wrap');
+            const itemName = item.querySelector('h3 a').textContent;
+            let price = item.querySelector('.price span').textContent;
+            let match = price.match(/\d+\.\d+/);
+            let itemPrice;
+            if (match) {
+                itemPrice = parseFloat(match[0]);
+            } else {
+                // handle the case where the regex does not match
+                console.log("Error: Could not extract price from string:", price);
+                return;
+            }
+
+            const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+            if (existingItem) {
+                console.log('Item already exists in the cart:', existingItem);
+                return; // Exit the function if the item already exists
+            }
+
+            // Add quantity property to the newItem object
+            const newItem = { name: itemName, price: itemPrice, quantity: 1 };
+            cartItems.push(newItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log('New item added:', newItem);
+
+            cartCount++;
+            cartIcon.textContent = cartCount;
+            updateCartButtons();
+        });
+    });
+
+    function updateCartButtons() {
+        addToCartButtons.forEach(button => {
+            const item = button.closest('.menu-wrap');
+            const itemName = item.querySelector('h3 a').textContent;
+
+            const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+            if (existingItem) {
+                button.textContent = 'Added to cart';
+                button.classList.add('btn-disabled');
+                button.disabled = true;
+            }
+        });
+    }
+    console.log('cartItems: ', cartItems);
+});
+
 </script>
     		</div>
     	</div>
@@ -278,7 +306,7 @@
 		              				<div class="text">
 		              					<h3><a>Original</a></h3>
 		              					<p>A rich and smooth instant coffee blend that delivers a satisfying taste to start your day right.</p>
-		              					<p class="price"><span>$2.50</span></p>
+		              					<p class="price"><span>RM 2.50</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>
@@ -289,7 +317,7 @@
 		              				<div class="text">
 		              					<h3><a >Milk Tea</a></h3>
 		              					<p>Discover the creamy indulgence of milk tea infused with the delightful aroma and smoothness of Nescafé.</p>
-		              					<p class="price"><span>$2.50</span></p>
+		              					<p class="price"><span>RM 2.50</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>
@@ -300,7 +328,7 @@
 		              				<div class="text">
 		              					<h3><a>Hazelnuts</a></h3>
 		              					<p>Indulge in the delightful fusion of smooth coffee and the irresistible aroma of roasted hazelnuts. A truly flavorful experience.</p>
-		              					<p class="price"><span>$2.90</span></p>
+		              					<p class="price"><span>RM 2.90</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>
@@ -311,7 +339,7 @@
 		              				<div class="text">
 		              					<h3><a>Caramel</a></h3>
 		              					<p> Experience the perfect balance of smooth coffee and luscious caramel flavor, creating a deliciously sweet and comforting cup.</p>
-		              					<p class="price"><span>$2.90</span></p>
+		              					<p class="price"><span>RM 2.90</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>
@@ -322,7 +350,7 @@
 		              				<div class="text">
 		              					<h3><a>Mocha</a></h3>
 		              					<p>A harmonious blend of rich coffee and indulgent chocolate, offering a delightful combination of flavors in every sip.</p>
-		              					<p class="price"><span>$2.90</span></p>
+		              					<p class="price"><span>RM 2.90</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>
@@ -333,7 +361,7 @@
 		              				<div class="text">
 		              					<h3><a href="#">Rich</a></h3>
 		              					<p> Immerse yourself in the bold and robust flavor of Nescafé Rich, a coffee that delivers a satisfyingly intense and full-bodied taste.</p>
-		              					<p class="price"><span>$2.90</span></p>
+		              					<p class="price"><span>RM 2.90</span></p>
 		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
 		              				</div>
 		              			</div>

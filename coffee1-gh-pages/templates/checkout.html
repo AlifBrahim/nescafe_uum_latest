@@ -210,7 +210,7 @@
     existingCartItems.forEach(item => item.remove());
 
     cartItems.forEach((item, index) => {
-      subtotal += parseFloat(item.price.slice(1)) * item.quantity; // Multiply price by quantity
+    subtotal += parseFloat(item.price.slice(2)) * item.quantity;
 
       // Create and append new element for each cart item
       const cartItemElement = document.createElement('div');
@@ -224,15 +224,15 @@
     });
 
     // Calculate subtotal, delivery, and total
-    subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(1)) * item.quantity, 0);
+    subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(2)) * item.quantity, 0);
     delivery = 0.00; // Set delivery fee here
     total = subtotal + delivery;
 
     const cartSubtotalElement = document.querySelector('#cart-subtotal');
-    cartSubtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+    cartSubtotalElement.textContent = `RM ${subtotal.toFixed(2)}`;
 
     const cartTotalElement = document.querySelector('#cart-total');
-    cartTotalElement.textContent = `$${total.toFixed(2)}`;
+    cartTotalElement.textContent = `RM ${total.toFixed(2)}`;
 
     // Set the values of the hidden input fields
     document.querySelector('input[name="subtotal"]').value = subtotal.toFixed(2);
