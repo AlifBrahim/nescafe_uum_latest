@@ -268,8 +268,7 @@
     	</div>
     </section>
 	  <script>
-
-		  function submitForm(event) {
+    function submitForm(event) {
         event.preventDefault(); // Prevent the default form submission
 
         // Get the form inputs
@@ -293,9 +292,11 @@
         const cartIcon = document.querySelector('.cart .bag small');
         let cartItems = [];
 
-        // Retrieve cartItems from localStorage on page load
+        // Retrieve cartItems and cartCount from localStorage on page load
         window.addEventListener('load', () => {
             cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+            cartIcon.textContent = cartCount;
             updateCartButtons();
         });
 
@@ -318,6 +319,7 @@
                 console.log('New item added:', newItem);
 
                 cartCount++;
+                localStorage.setItem('cartCount', cartCount);
                 cartIcon.textContent = cartCount;
                 updateCartButtons();
 
@@ -347,5 +349,6 @@
         console.log('cartItems: ', cartItems);
     });
 </script>
+
 </html>
 	{% endblock %}

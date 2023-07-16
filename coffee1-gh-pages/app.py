@@ -2,6 +2,7 @@
 """
 Created on Wed Jul 12 23:32:14 2023
 
+
 @author: IMAN ZULHAKIM
 """
 from datetime import datetime
@@ -62,11 +63,9 @@ def menu():
         flash('success')
     return render_template('menu.html', messages=get_flashed_messages())
 
-
 @app.route('/services')
 def service():
     return render_template('services.html')
-
 
 @app.route('/cart')
 def cart():
@@ -127,8 +126,6 @@ def checkout():
         'checkout.html',
         cart=cart,
     )
-
-
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000, debug=False)
