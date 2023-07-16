@@ -159,22 +159,27 @@
     existingCartItems.forEach(item => item.remove());
 
     cartItems.forEach((item, index) => {
-    subtotal += parseFloat(item.price.slice(2)) * item.quantity;
+        subtotal += parseFloat(item.price.slice(2)) * item.quantity;
 
-      // Create and append new element for each cart item
-      const cartItemElement = document.createElement('div');
-      cartItemElement.classList.add('cart-item');
-      cartItemElement.innerHTML = `
-        <h4>${item.name}</h4>
-        <p>Price: ${item.price}</p>
-        <p>Quantity: ${item.quantity}</p>
-      `;
-      cartTotalBox.appendChild(cartItemElement);
+        // Create and append new element for each cart item
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-item');
+        cartItemElement.innerHTML = `
+            <h4>${item.name}</h4>
+            <p>Price: ${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+        `;
+        cartTotalBox.appendChild(cartItemElement);
     });
 
     // Calculate subtotal, delivery, and total
     subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(2)) * item.quantity, 0);
-    delivery = 3.00; // Set delivery fee here
+
+    // Only add delivery fee if delivery radio button is selected
+    if (document.querySelector('input[name="pickup_delivery"][value="delivery"]').checked) {
+        delivery = 3.00; // Set delivery fee here
+    }
+
     total = subtotal + delivery;
 
     const cartSubtotalElement = document.querySelector('#cart-subtotal');
@@ -191,7 +196,8 @@
     console.log('subtotal: ', subtotal);
     console.log('delivery: ', delivery);
     console.log('total: ', total);
-  }
+}
+
 
   renderCartItems();
 
@@ -238,16 +244,19 @@ const deliveryRadioButton = document.querySelector('input[name="pickup_delivery"
 pickupRadioButton.addEventListener('change', function(event) {
     if (event.target.checked) {
         deliveryPriceElement.style.display = 'none';
-                  deliveryLabelElement.style.display = 'none';
+        deliveryLabelElement.style.display = 'none';
+        renderCartItems();
     }
 });
 
 deliveryRadioButton.addEventListener('change', function(event) {
     if (event.target.checked) {
         deliveryPriceElement.style.display = 'flex';
-                  deliveryLabelElement.style.display = 'flex';
+        deliveryLabelElement.style.display = 'flex';
+        renderCartItems();
     }
 });
+
 
 </script>
 
