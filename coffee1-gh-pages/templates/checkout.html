@@ -30,7 +30,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label id="firstname">Name</label>
-                <input type="text" name="first_name" class="form-control" placeholder="Please Enter Your Name">
+                <input type="text" name="first_name" class="form-control" placeholder="Please Enter Your Name" required>
               </div>
             </div>
             <div class="col-md-6">
@@ -40,27 +40,27 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label id="country">Location</label>
-                <input type="text" name="location" class="form-control" placeholder="Please Enter Your Location">
+                <input type="text" name="location" class="form-control" placeholder="Please Enter Your Location" required>
               </div>
             </div>
             <div class="w-100"></div>
             <div class="col-md-6">
               <div class="form-group">
                 <label id="phone">Phone</label>
-                <input type="text" name="phone" class="form-control" placeholder="e.g. 012 345 6789">
+                <input type="text" name="phone" class="form-control" placeholder="e.g. 012 345 6789" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label id="emailaddress">Email Address</label>
-                <input type="text" name="email_address" class="form-control" placeholder="e.g. email@address.com">
+                <input type="text" name="email_address" class="form-control" placeholder="e.g. email@address.com" required>
               </div>
             </div>
             <div class="w-100"></div>
             <div class="col-md-12">
               <div class="form-group mt-4">
                 <div class="radio">
-                  <label class="mr-3"><input type="radio" name="pickup_delivery" value="pickup"> Pickup</label>
+                  <label class="mr-3"><input type="radio" name="pickup_delivery" value="pickup" > Pickup</label>
                   <label><input type="radio" name="pickup_delivery" value="delivery"> Delivery</label>
                 </div>
               </div>
@@ -197,6 +197,25 @@
 
   console.log('cartItems: ', cartItems);
   document.querySelector('#checkout-form').addEventListener('submit', function(event) {
+     // Get all the required input fields
+    const requiredFields = document.querySelectorAll('input[required]');
+    let allFieldsValid = true;
+
+    // Loop through each required field and check if it's valid
+    requiredFields.forEach(field => {
+        if (!field.checkValidity()) {
+            allFieldsValid = false;
+            field.classList.add('invalid'); // Add a class to style the invalid field
+        } else {
+            field.classList.remove('invalid');
+        }
+    });
+
+    // If not all fields are valid, prevent form submission and show an alert
+    if (!allFieldsValid) {
+        event.preventDefault();
+        alert('Please fill in all the required fields');
+    }
     Swal.fire({
         icon: 'success',
         title: 'Order successfully made!',

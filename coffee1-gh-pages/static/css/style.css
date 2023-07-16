@@ -246,6 +246,10 @@ input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
   -webkit-appearance: listbox; }
+input.invalid {
+    border: 1px solid red;
+}
+
 
 textarea {
   overflow: auto;
