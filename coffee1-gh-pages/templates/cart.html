@@ -29,10 +29,10 @@
 						      <tr class="text-center">
 						        <th>&nbsp;</th>
 						        <th>&nbsp;</th>
-						        <th>Product</th>
-						        <th>Price</th>
-						        <th>Quantity</th>
-						        <th>Total</th>
+						        <th><strong>Product</strong></th>
+								<th><strong>Price</strong></th>
+						        <th><strong>Quantity</strong></th>
+						        <th><strong>Total</strong></th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -73,79 +73,6 @@
 
 
 <script>
-// 	const cartTableBody = document.querySelector('#cart-table tbody');
-//
-// let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-// console.log('cartItems: ', cartItems)
-// let total = 0;
-//
-// cartItems.forEach(item => {
-//   const tr = document.createElement('tr');
-//   tr.classList.add('text-center');
-//
-//   const tdRemove = document.createElement('td');
-//   tdRemove.classList.add('product-remove');
-//   const aRemove = document.createElement('a');
-//   aRemove.setAttribute('href', '#');
-//   const spanRemove = document.createElement('span');
-//   spanRemove.classList.add('icon-close');
-//   aRemove.appendChild(spanRemove);
-//   tdRemove.appendChild(aRemove);
-//   tr.appendChild(tdRemove);
-//
-//   const tdImage = document.createElement('td');
-//   tdImage.classList.add('image-prod');
-//   const divImage = document.createElement('div');
-//   divImage.classList.add('img');
-//   divImage.style.backgroundImage = `url(${item.image})`;
-//   tdImage.appendChild(divImage);
-//   tr.appendChild(tdImage);
-//
-//   const tdName = document.createElement('td');
-//   tdName.classList.add('product-name');
-//   const h3Name = document.createElement('h3');
-//   h3Name.textContent = item.name;
-//   const pName = document.createElement('p');
-//   pName.textContent = item.description;
-//   tdName.appendChild(h3Name);
-//   tdName.appendChild(pName);
-//   tr.appendChild(tdName);
-//
-//   const tdPrice = document.createElement('td');
-//   tdPrice.classList.add('price');
-//   tdPrice.textContent = item.price;
-//   tr.appendChild(tdPrice);
-//
-//   const tdQuantity = document.createElement('td');
-//   tdQuantity.classList.add('quantity');
-//   const divQuantity = document.createElement('div');
-//   divQuantity.classList.add('input-group', 'mb-3');
-//   const inputQuantity = document.createElement('input');
-//   inputQuantity.setAttribute('type', 'text');
-//   inputQuantity.setAttribute('name', 'quantity');
-//   inputQuantity.classList.add('quantity', 'form-control', 'input-number');
-//   inputQuantity.setAttribute('value', '1');
-//   inputQuantity.setAttribute('min', '1');
-//   inputQuantity.setAttribute('max', '100');
-//     divQuantity.appendChild(inputQuantity);
-//   tdQuantity.appendChild(divQuantity);
-//   tr.appendChild(tdQuantity);
-//
-//   const tdTotal = document.createElement('td');
-//   tdTotal.classList.add('total');
-//   tdTotal.textContent = item.price;
-//   tr.appendChild(tdTotal);
-//
-//   cartTableBody.appendChild(tr);
-//
-//   total += parseFloat(item.price.slice(1));
-// });
-//
-// const cartSubtotal = document.querySelector('#cart-subtotal');
-// cartSubtotal.textContent = `$${total.toFixed(2)}`;
-//
-// const cartTotal = document.querySelector('#cart-total');
-// cartTotal.textContent = `$${total.toFixed(2)}`;
 
 const cartTableBody = document.querySelector('#cart-table tbody');
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
