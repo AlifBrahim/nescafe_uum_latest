@@ -197,7 +197,7 @@
 		              					<h3><a>Original</a></h3>
 		              					<p>A rich and smooth instant coffee blend that delivers a satisfying taste to start your day right.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -208,7 +208,7 @@
 		              					<h3><a >Milk Tea</a></h3>
 		              					<p>Discover the creamy indulgence of milk tea infused with the delightful aroma and smoothness of Nescafé.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -219,7 +219,7 @@
 		              					<h3><a>Hazelnuts</a></h3>
 		              					<p>Indulge in the delightful fusion of smooth coffee and the irresistible aroma of roasted hazelnuts. A truly flavorful experience.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -230,7 +230,7 @@
 		              					<h3><a>Caramel</a></h3>
 		              					<p> Experience the perfect balance of smooth coffee and luscious caramel flavor, creating a deliciously sweet and comforting cup.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -241,7 +241,7 @@
 		              					<h3><a>Mocha</a></h3>
 		              					<p>A harmonious blend of rich coffee and indulgent chocolate, offering a delightful combination of flavors in every sip.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -252,7 +252,7 @@
 		              					<h3><a href="#">Rich</a></h3>
 		              					<p> Immerse yourself in the bold and robust flavor of Nescafé Rich, a coffee that delivers a satisfyingly intense and full-bodied taste.</p>
 		              					<p class="price"><span>RM 2.50</span></p>
-		              					<p><a class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+<p><a class="btn btn-primary btn-outline-primary add-to-cart">Add to cart</a></p>
 		              				</div>
 		              			</div>
 		              		</div>
@@ -301,50 +301,63 @@
         });
 
         addToCartButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                const item = event.target.closest('.menu-wrap');
-                const itemName = item.querySelector('h3 a').textContent;
-                const itemPrice = item.querySelector('.price span').textContent;
+    button.addEventListener('click', event => {
+        const item = event.target.closest('.menu-wrap');
+        const itemName = item.querySelector('h3 a').textContent;
+        const itemPrice = item.querySelector('.price span').textContent;
 
-                const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
-                if (existingItem) {
-                    console.log('Item already exists in the cart:', existingItem);
-                    return; // Exit the function if the item already exists
-                }
+        const existingItemIndex = cartItems.findIndex(cartItem => cartItem.name === itemName);
+        if (existingItemIndex > -1) {
+            // Increase the quantity of the existing item
+            cartItems[existingItemIndex].quantity++;
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log('Increased quantity of existing item:', cartItems[existingItemIndex]);
+        } else {
+            // Add a new item to the cart
+            const newItem = { name: itemName, price: itemPrice, quantity: 1 };
+            cartItems.push(newItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            console.log('New item added:', newItem);
+        }
 
-                // Add quantity property to the newItem object
-                const newItem = { name: itemName, price: itemPrice, quantity: 1 };
-                cartItems.push(newItem);
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                console.log('New item added:', newItem);
+        // Update cart count and buttons
+        updateCartCount();
+        updateCartButtons();
 
-                cartCount++;
-                localStorage.setItem('cartCount', cartCount);
-                cartIcon.textContent = cartCount;
-                updateCartButtons();
-
-                // Show the "Successfully added!" pop-up message using SweetAlert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Successfully added!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            });
+        // Show the "Successfully added!" pop-up message using SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Successfully added!',
+            showConfirmButton: false,
+            timer: 1500
         });
+    });
+});
+		function updateCartCount() {
+    let count = 0;
+    for (const item of cartItems) {
+        count += item.quantity;
+    }
+    localStorage.setItem('cartCount', count);
+    cartIcon.textContent = count;
+}
+
+
 
         function updateCartButtons() {
-            addToCartButtons.forEach(button => {
-                const item = button.closest('.menu-wrap');
-                const itemName = item.querySelector('h3 a').textContent;
+    addToCartButtons.forEach(button => {
+        const item = button.closest('.menu-wrap');
+        const itemName = item.querySelector('h3 a').textContent;
 
-                const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
-                if (existingItem) {
-                    button.textContent = 'Added to cart';
-                    button.classList.add('btn-disabled');
-                }
-            });
+        const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+        if (existingItem) {
+            button.textContent = `Add to cart (${existingItem.quantity})`;
+        } else {
+            button.textContent = 'Add to cart';
         }
+    });
+}
+
 
         console.log('cartItems: ', cartItems);
     });
