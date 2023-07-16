@@ -14,7 +14,7 @@ db_config = {
     'port': 3306,
     'user': 'alif',
     'password': 'alep1234!',
-    'database': 'spa'
+    'database': 'nescafe'
 }
 
 app = Flask(__name__, template_folder='templates')
