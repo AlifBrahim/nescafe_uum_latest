@@ -32,7 +32,6 @@
 						        <th><strong>Product</strong></th>
 								<th><strong>Price</strong></th>
 						        <th><strong>Quantity</strong></th>
-						        <th><strong>Total</strong></th>
 						      </tr>
 						    </thead>
 						    <tbody>
@@ -133,12 +132,56 @@ const tdImage = document.createElement('td');
     inputQuantity.classList.add('quantity', 'form-control', 'input-number');
     inputQuantity.setAttribute('value', item.quantity); // Set initial value to item.quantity
     inputQuantity.setAttribute('min', '1');
-    inputQuantity.setAttribute('max', '100');
+    inputQuantity.setAttribute('max', '10000');
+
+	const spanMinus = document.createElement('span');
+spanMinus.classList.add('input-group-btn');
+const buttonMinus = document.createElement('button');
+buttonMinus.classList.add('quantity-left-minus', 'btn', 'btn-number');
+buttonMinus.setAttribute('type', 'button');
+buttonMinus.setAttribute('data-type', 'minus');
+buttonMinus.setAttribute('data-field', '');
+buttonMinus.textContent = '-';
+spanMinus.appendChild(buttonMinus);
+
+const spanPlus = document.createElement('span');
+spanPlus.classList.add('input-group-btn');
+const buttonPlus = document.createElement('button');
+buttonPlus.classList.add('quantity-right-plus', 'btn', 'btn-number');
+buttonPlus.setAttribute('type', 'button');
+buttonPlus.setAttribute('data-type', 'plus');
+buttonPlus.setAttribute('data-field', '');
+buttonPlus.textContent = '+';
+spanPlus.appendChild(buttonPlus);
+
+divQuantity.appendChild(inputQuantity);
+divQuantity.appendChild(spanMinus);
+divQuantity.appendChild(spanPlus);
+
+// Add event listener to decrease quantity when minus button is clicked
+buttonMinus.addEventListener('click', () => {
+  const newQuantity = cartItems[index].quantity - 1;
+  if (newQuantity >= 1) {
+    cartItems[index].quantity = newQuantity;
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    renderCartItems();
+  }
+});
+
+// Add event listener to increase quantity when plus button is clicked
+buttonPlus.addEventListener('click', () => {
+  const newQuantity = cartItems[index].quantity + 1;
+  if (newQuantity <= 10000) {
+    cartItems[index].quantity = newQuantity;
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    renderCartItems();
+  }
+});
 
     // Add event listener to update item quantity when input value is changed
     inputQuantity.addEventListener('input', event => {
       const newQuantity = parseInt(event.target.value);
-      if (newQuantity >= 1 && newQuantity <= 100) {
+      if (newQuantity >= 1 && newQuantity <= 10000) {
         cartItems[index].quantity = newQuantity;
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
         renderCartItems();
@@ -148,10 +191,7 @@ const tdImage = document.createElement('td');
     tdQuantity.appendChild(divQuantity);
     tr.appendChild(tdQuantity);
 
-  const tdTotal = document.createElement('td');
-  tdTotal.classList.add('total');
-  tdTotal.textContent = item.price;
-  tr.appendChild(tdTotal);
+
     cartTableBody.appendChild(tr);
 
 	total += parseFloat(item.price.slice(2)) * item.quantity;
