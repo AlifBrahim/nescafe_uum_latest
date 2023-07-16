@@ -94,7 +94,7 @@
                 <!-- Hidden Fields -->
                 <input type="hidden" name="subtotal" value="{{ subtotal }}">
                 <input type="hidden" name="delivery" value="{{ delivery }}">
-                <input type="hidden" name="total" value="17.60">
+                <input type="hidden" name="total" value="0.00">
 
                 <div class="form-group">
                   <div class="col-md-12">
@@ -114,17 +114,17 @@
               <h3 class="billing-heading mb-4">Cart Total</h3>
               <p class="d-flex">
                 <span>Subtotal</span>
-                <span id="cart-subtotal">$20.60</span>
+                <span id="cart-subtotal"></span>
               </p>
               <p class="d-flex">
                 <span id="cart-delivery-label">Delivery</span>
-                <span id="cart-delivery">$0.00</span>
+                <span id="cart-delivery">RM 3.00</span>
               </p>
 
               <hr>
               <p class="d-flex total-price">
                 <span>Total</span>
-                <span id="cart-total">$17.60</span>
+                <span id="cart-total"></span>
               </p>
               <hr>
               <h2>Your Orders</h2>
@@ -214,7 +214,7 @@
 
     // Calculate subtotal, delivery, and total
     subtotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price.slice(2)) * item.quantity, 0);
-    delivery = 0.00; // Set delivery fee here
+    delivery = 3.00; // Set delivery fee here
     total = subtotal + delivery;
 
     const cartSubtotalElement = document.querySelector('#cart-subtotal');
