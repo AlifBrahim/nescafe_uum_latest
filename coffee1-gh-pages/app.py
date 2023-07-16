@@ -25,7 +25,6 @@ def index():
     return render_template('index.html')
 
 
-
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     if request.method == 'POST':
