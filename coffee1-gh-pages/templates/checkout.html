@@ -2,7 +2,8 @@
 <html lang="en">
   {% extends 'base.html' %}
 {% block content %}
-
+    <!-- Add this in the head section of your HTML file -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     <section class="home-slider owl-carousel">
 
       <div class="slider-item" style="background-image: url(../static/images/cart.jpg);" data-stellar-background-ratio="0.5">
@@ -79,17 +80,11 @@
                 <div class="form-group">
                   <div class="col-md-12">
                     <div class="radio">
-                      <label><input type="radio" name="payment_method" value="check_payment" class="mr-2"> Check Payment</label>
+                      <label><input type="radio" name="payment_method" value="tng" class="mr-2">TnG eWallet</label>
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-md-12">
-                    <div class="radio">
-                      <label><input type="radio" name="payment_method" value="paypal" class="mr-2"> Paypal</label>
-                    </div>
-                  </div>
-                </div>
+
 
                 <!-- Hidden Fields -->
                 <input type="hidden" name="subtotal" value="{{ subtotal }}">
@@ -137,46 +132,11 @@
 </section>
 
 
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-
-		        // If is not undefined
-
-		            $('#quantity').val(quantity + 1);
-
-
-		            // Increment
-
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-
-		        // If is not undefined
-
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-
-		});
-	</script>
-
-
   </body>
 <script>
+
+
+
   const cartTableBody = document.querySelector('#cart-table tbody');
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   let total = 0;
@@ -237,10 +197,19 @@
 
   console.log('cartItems: ', cartItems);
   document.querySelector('#checkout-form').addEventListener('submit', function(event) {
+    Swal.fire({
+        icon: 'success',
+        title: 'Order successfully made!',
+        showConfirmButton: false,
+        timer: 1500
+    });
     localStorage.removeItem('cartItems');
     // remove cartCount from localStorage
     localStorage.removeItem('cartCount');
 });
+
+
+
   // when 'pickup' is selected, remove the delivery fee
     const deliveryPriceElement = document.querySelector('#cart-delivery');
   const deliveryLabelElement = document.querySelector('#cart-delivery-label');
