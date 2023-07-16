@@ -158,40 +158,70 @@
 
 <!-- End of Booking Form -->
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var coffeeContainer = document.getElementById("coffee-container");
-			var addButton = document.querySelector(".add-coffee");
+    document.addEventListener("DOMContentLoaded", function() {
+        let cartCount = 0;
+        const addToCartButtons = document.querySelectorAll('.btn-primary.btn-outline-primary');
+        const cartIcon = document.querySelector('.cart .bag small');
+        let cartItems = [];
 
-			addButton.addEventListener("click", function() {
-				var coffeeEntry = document.createElement("div");
-				coffeeEntry.classList.add("coffee-entry");
-				coffeeEntry.innerHTML = `
-					<div class="d-md-flex">
-						<div class="form-group">
-							<select class="form-control" name="coffee[]">
-								<option value="classic">Classic</option>
-								<option value="cappuccino">Cappuccino</option>
-								<option value="latte">Latte</option>
-							</select>
-						</div>
-						<div class="form-group ml-md-4">
-							<input type="number" class="form-control" placeholder="Quantity" name="quantity[]">
-						</div>
-						<div class="form-group ml-md-2">
-							<button type="button" class="btn btn-danger btn-sm remove-coffee">-</button>
-						</div>
-					</div>
-				`;
-				coffeeContainer.appendChild(coffeeEntry);
-			});
+        // Retrieve cartItems from localStorage on page load
+        window.addEventListener('load', () => {
+            cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            updateCartButtons();
+        });
 
-			coffeeContainer.addEventListener("click", function(event) {
-				if (event.target.classList.contains("remove-coffee")) {
-					event.target.closest(".coffee-entry").remove();
-				}
-			});
-		});
-	</script>
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const item = event.target.closest('.menu-wrap');
+                const itemName = item.querySelector('h3 a').textContent;
+                const itemPrice = item.querySelector('.price span').textContent;
+
+                const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+                if (existingItem) {
+                    console.log('Item already exists in the cart:', existingItem);
+                    return; // Exit the function if the item already exists
+                }
+
+                // Add quantity property to the newItem object
+                const newItem = { name: itemName, price: itemPrice, quantity: 1 };
+                cartItems.push(newItem);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                console.log('New item added:', newItem);
+
+                cartCount++;
+                cartIcon.textContent = cartCount;
+                updateCartButtons();
+
+                // Show the "Successfully added!" pop-up message using SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successfully added!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            });
+        });
+
+        function updateCartButtons() {
+            addToCartButtons.forEach(button => {
+                const item = button.closest('.menu-wrap');
+                const itemName = item.querySelector('h3 a').textContent;
+
+                const existingItem = cartItems.find(cartItem => cartItem.name === itemName);
+                if (existingItem) {
+                    button.textContent = 'Added to cart';
+                    button.classList.add('btn-disabled');
+                    button.disabled = true;
+                }
+            });
+        }
+
+        console.log('cartItems: ', cartItems);
+    });
+</script>
+
+	<!-- Add this in the head section of your HTML file -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
   	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
