@@ -238,6 +238,8 @@
   console.log('cartItems: ', cartItems);
   document.querySelector('#checkout-form').addEventListener('submit', function(event) {
     localStorage.removeItem('cartItems');
+    // remove cartCount from localStorage
+    localStorage.removeItem('cartCount');
 });
   // when 'pickup' is selected, remove the delivery fee
     const deliveryPriceElement = document.querySelector('#cart-delivery');
